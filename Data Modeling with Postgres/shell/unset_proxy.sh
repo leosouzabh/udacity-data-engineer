@@ -1,1 +1,0 @@
- unset HTTPS_PROXY https_proxy HTTP_PROXY http_proxy
