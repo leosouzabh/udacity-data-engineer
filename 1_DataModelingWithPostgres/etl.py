@@ -5,6 +5,18 @@ import pandas as pd
 from sql_queries import *
 
 def process_song_file(cur, filepath):
+    """
+    Description: Function to parse files in log_data directory and input 
+    values in the tables songs and artists
+
+    Arguments:
+        cur: the cursor object. 
+        filepath: json log_data filepath
+
+    Returns:
+        None
+    """
+
     # open song file
     df = pd.read_json(filepath, lines=True)
 
@@ -18,6 +30,18 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """
+    Description: Function to parse files in log_data directory and input 
+    values in the tables time, users and songplay
+
+    Arguments:
+        cur: the cursor object. 
+        filepath: json log_data filepath
+
+    Returns:
+        None
+    """
+
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -58,6 +82,20 @@ def process_log_file(cur, filepath):
         cur.execute(songplay_table_insert, songplay_data)        
 
 def process_data(cur, conn, filepath, func):
+    """
+    Description: Iterate over each json file in input parameter 'filepath' including subdirectories.
+    Call 'func' to process each file
+
+    Arguments:
+        cur: the cursor object. 
+        conn: database connection.
+        filepath: directory root path where all json input files are stored. 
+        func: function to be called to process each file from.
+
+    Returns:
+        None
+    """
+
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -77,6 +115,11 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
+    """
+    Description: Main function, it processes the files from song_data and log_data
+    and input into the postgres database
+    """
+
     conn = psycopg2.connect("host=postgres dbname=sparkifydb user=student password=student")
     cur = conn.cursor()
 

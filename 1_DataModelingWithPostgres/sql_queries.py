@@ -12,45 +12,45 @@ time_table_drop = "drop table if exists time"
 songplay_table_create = ("""
 create table songplays(
     songplay_id serial primary key,
-    start_time bigint references time,
-    user_id int references users,
-    level varchar,
+    start_time bigint references time not null,
+    user_id int references users not null,
+    level varchar not null,
     song_id varchar references songs,
     artist_id varchar references artists,
-    session_id int,
-    location varchar,
-    user_agent varchar
+    session_id int not null,
+    location varchar not null,
+    user_agent varchar not null
 )
 """)
 
 user_table_create = ("""
 create table users (
     user_id int primary key,
-    first_name varchar,
-    last_name varchar,
-    gender varchar,
-    level varchar,
-    last_activity_ts bigint
+    first_name varchar not null,
+    last_name varchar not null,
+    gender varchar not null,
+    level varchar not null,
+    last_activity_ts bigint not null
 )
 """)
 
 song_table_create = ("""
 create table songs (
     song_id varchar primary key,
-    title varchar,
-    artist_id varchar,
-    year int,
-    duration int
+    title varchar not null,
+    artist_id varchar not null,
+    year int not null,
+    duration int not null
 )
 """)
 
 artist_table_create = ("""
 create table artists (
     artist_id varchar primary key,
-    name varchar,
-    location varchar,
-    latitude varchar,
-    longitude varchar
+    name varchar not null,
+    location varchar not null,
+    latitude varchar not null,
+    longitude varchar not null
 )
 """)
 
